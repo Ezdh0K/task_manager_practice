@@ -15,33 +15,33 @@ function TaskForm({ onAdd }) {
     };
 
     return (
-        <section>
+        <div className='task-form'>
             <h2>Добавить задачу</h2>
             <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '10px' }}>
+                <div className='part-form'>
                     <label>Название задачи:</label><br />
                     <input 
                         type="text" 
                         value={title} 
                         onChange={(e) => setTitle(e.target.value)} 
                         placeholder="Введите название"
-                        style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                        className='title'
                     />
                 </div>
-                <div style={{ marginBottom: '10px' }}>
+                <div className='part-form'>
                     <label>Описание:</label><br />
                     <textarea 
                         value={description} 
                         onChange={(e) => setDescription(e.target.value)} 
-                        placeholder="Описание задачи"
-                        style={{ width: '100%', padding: '8px', marginTop: '5px', minHeight: '60px' }}
+                        placeholder="Описание задачи" 
+                        className='description'
                     />
                 </div>
-                <button type="submit" style={{ padding: '10px 15px', cursor: 'pointer' }}>
+                <button type="submit" className="add-task">
                     Добавить задачу
                 </button>
             </form>
-        </section>
+        </div>
     );
 }
 

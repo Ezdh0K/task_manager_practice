@@ -1,48 +1,34 @@
 import React from 'react';
 
-function TaskList({ tasks, onUpdateStatus }) {
+function TaskList({ tasks, onUpdateStatus, onDelete }) {
     return (
-        <section>
-            <div style={{ marginTop: '30px' }}>
-                <h3>Задачи ({tasks.length}):</h3>
-                
-                {tasks.length === 0 && <p>Список задач пуст.</p>}
-
-                {tasks.map((task) => (
-                    <div key={task.id} style={{
-                        border: '1px solid #ccc',
-                        padding: '15px',
-                        margin: '10px 0',
-                        backgroundColor: '#f9f9f9',
-                        borderRadius: '8px'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                            <h4 style={{ margin: 0 }}>{task.title}</h4>
-                            <select 
-                                value={task.status} 
-                                onChange={(e) => onUpdateStatus(task.id, e.target.value)}
-                                style={{ 
-                                    padding: '5px 10px', 
-                                    borderRadius: '4px', 
-                                    border: '1px solid #999',
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                <option value="новое">Новое</option>
-                                <option value="в процессе">В процессе</option>
-                                <option value="выполнено">Выполнено</option>
-                            </select>
-                        </div>
-                        
-                        <p style={{ margin: '0 0 10px 0', color: '#555' }}>{task.description}</p>
-                        <small style={{ color: '#888' }}>
-                            Статус: <strong>{task.status}</strong> | 
-                            Создано: {new Date(task.createdAt).toLocaleString('ru-RU')}
-                        </small>
+        <div>
+            <h3>Задачи ({tasks.length}):</h3>    
+            {tasks.length === 0 && <p>Список задач пуст.</p>}
+            {tasks.map((task) => (
+                <div key={task.id} className="tasks">
+                    <div className='tasks-up'>
+                        <h4 className="task-title">{task.title}</h4>
+                        <select value={task.status} onChange={(e) => onUpdateStatus(task.id, e.target.value)} className='task-action'>
+                            <option value="новое">Новое</option>
+                            <option value="в процессе">В процессе</option>
+                            <option value="выполнено">Выполнено</option>
+                        </select>
+                        <button 
+                            onClick={() => onDelete(task.id)}>
+                            Удалить
+                        </button>
                     </div>
-                ))}
-            </div>
-        </section>
+                    <div className="title-description">
+                        <p className="description-text">{task.description}</p>
+                    </div>
+                        
+                    <div>
+                        <div className='date'>Создано: {new Date(task.createdAt).toLocaleString('ru-RU')}</div>
+                    </div>
+                </div>
+            ))}
+        </div>
     );
 }
 

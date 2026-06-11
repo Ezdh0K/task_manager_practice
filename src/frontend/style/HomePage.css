@@ -25,3 +25,89 @@ code {
   color: white;
   height: auto;
 }
+.left-side{
+  width: 300px;
+  position: fixed;
+  left: 0;
+  text-align: justify;
+}
+
+.taskSide{
+  margin-left: 300px;
+  width: auto;
+  min-height: 100vh;
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
+  margin-top: 0;
+}
+
+.tasks-up{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.tasks{
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.task-title{
+
+}
+
+.task-action{
+  padding: '5px 10px';
+  border-radius: 4px;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+
+.task-decription{
+  margin: 0 0 10px 0;
+  color: #555;
+}
+
+.date{
+  color: #888;
+}
+
+.status{
+  color: #888;
+}
+
+.task-form{
+  max-width: 600px;
+  margin: 0 auto; 
+  font-family: Arial, sans-serif; 
+  padding: 20px;
+}
+
+.description{ 
+  width: 100%; 
+  padding: 8px; 
+  margin-top: 5px; 
+  min-height: 60px;
+}
+
+.title{
+  width: 100%; 
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.part-form{
+  margin-bottom: 10px;
+}
+
+.add-task{
+  padding: 10px 15px; 
+  cursor: pointer;
+}
+
+.list{
+  list-style: none;
+}
