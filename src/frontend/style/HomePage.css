@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Name {
+  border-bottom: 1px solid;
+  border-color: rgb(0, 255, 255);
+  width: 100%;
+  font-size: small;
+}
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  color: white;
+  height: auto;
+}

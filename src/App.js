@@ -1,13 +1,9 @@
-import './App.css';
+import HomePage from "./frontend/HomePage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Привет
-        </p>
-      </header>
+      <HomePage />
     </div>
   );
 }
