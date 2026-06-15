@@ -16,7 +16,7 @@ exports.getAllTasks = async () => {
 };
 
 exports.getTaskById = async (taskData) => {
-    if (!task_id)
+    if (!taskData.task_id)
         {
             throw new Error("Такой задачи не существует!");
         }
@@ -24,11 +24,11 @@ exports.getTaskById = async (taskData) => {
 };
 
 exports.updateTask = async (taskData) => {
-    const { task_title, task_description, task_id } = taskData;
-    if (task_title || task_description) {
+    const { new_task_title, new_task_description, task_id } = taskData;
+    if (!new_task_title || !new_task_description) {
         throw new Error("Измените название или описание задачи");
     }
-    if (taskData.task_description.length > 500) {
+    if (new_task_description.length > 500) {
         throw new Error("Ввести можно максимум 500 символов!");
     }
     if (!task_id){
@@ -38,7 +38,7 @@ exports.updateTask = async (taskData) => {
 };
 
 exports.deleteTask = async (taskData) => {
-    if (!task_id)
+    if (!taskData.task_id)
         {
             throw new Error("Такая задача не существует!");
         }

@@ -11,12 +11,12 @@ exports.createTask = async (taskData) => {
     return result.rows[0];
 };
 
-exports.readAllTasks = async (taskData) => {
+exports.getAllTasks = async (taskData) => {
     const result = await pool.query(`SELECT * FROM tasks`);
     return result.rows;
 };
 
-exports.readTaskById = async (taskData) => {
+exports.getTaskById = async (taskData) => {
     const { task_id } = taskData;
     const result = await pool.query(
         `SELECT * FROM tasks
@@ -27,12 +27,12 @@ exports.readTaskById = async (taskData) => {
 };
 
 exports.putTask = async (taskData) => {
-    const { task_id, task_title, task_description, task_status } = taskData;
+    const { task_id, new_task_title, new_task_description, new_task_status } = taskData;
     const result = await pool.query(
         `UPDATE tasks SET task_title = $1, task_description = $2, task_status = $3
         WHERE task_id = $4
         RETURNING task_id, task_title, task_description, task_status`,
-        [ task_title, task_description, task_status, task_id ]
+        [ new_task_title, new_task_description, new_task_status, task_id ]
     );
     return result.rows[0];
 };
