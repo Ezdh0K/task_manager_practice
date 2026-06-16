@@ -1,11 +1,11 @@
 const userModel = require('./user.model');
 
 exports.createUser = async (userData) => {
-    if (!userData.user_name || !userData.user_email || !userData.password_hash ||)
+    if (!userData.user_name || !userData.user_email || !userData.password_hash)
     {
         throw new Error("Поля имени, почты и пароля обязательны для заполнения!");
     }
-    if (userData.user_email > 100) {
+    if (userData.user_email.length > 100) {
         throw new Error("Почта должна содержать не более 100 символов!");
     }
 
@@ -29,10 +29,10 @@ exports.updateUser = async (userData) => {
     if (!user_id) {
         throw new Error("Такого пользователя не существует!");
     }
-    if (user_email.length > 100) {
+    if (new_user_email.length > 100) {
         throw new Error("Почта может содержать не более 100 символов!");
     }
-    if (user_name.length > 50) {
+    if (new_user_name.length > 50) {
         throw new Error("Имя может содержать не более 50 символов!");
     }
 
@@ -40,7 +40,8 @@ exports.updateUser = async (userData) => {
 };
 
 exports.deleteUser = async (userData) => {
-    if (!userData.user_id) {
+    const { user_id } = userData;
+    if (!user_id) {
         throw new Error("Нет такого пользователя!");
     }
 

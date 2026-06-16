@@ -5,11 +5,16 @@ exports.createUser = async (userData) => {
     const result = await pool.query(
         `INSERT INTO users (user_name, user_email, password_hash)
         VALUES ($1, $2, $3)
-        RETURNING user_name, user_email, password_hash`,
+        RETURNING user_id, user_name, user_email, password_hash`,
         [user_name, user_email, password_hash]
     );
 
     return result.rows[0];
+};
+
+exports.getAllUsers = async () => {
+    const result = await pool.query(`SELECT * FROM users`);
+    return result.rows;
 };
 
 exports.getUserByEmail = async (userData) => {
@@ -26,7 +31,7 @@ exports.getUserByEmail = async (userData) => {
 exports.putUser = async (userData) => {
     const { user_id, new_user_name, new_user_email, new_user_password } = userData;
     const result = await pool.query(
-        `UPDATE users SET new_user_name = $1, new_user_email = $2, new_user_password = $3
+        `UPDATE users SET user_name = $1, user_email = $2, password_hash = $3
         WHERE user_id = $4
         RETURNING user_id, user_name, user_email, password_hash`,
         [new_user_name, new_user_email, new_user_password, user_id]
