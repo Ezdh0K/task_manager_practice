@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
+import { taskAPI } from '../../services/api.js';
 
-function TaskForm({ onAdd }) {
+function TaskForm({ onTaskCreated }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [priority, setPriority] = useState('middle');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!title.trim()) return;
-        
-        onAdd({ title, description });
-         
-        setTitle('');
-        setDescription('');
+    const handleSubmit = async (e) => { 
+        e.preventDefault(); 
+        if (!title.trim()) return; 
+        try { 
+            await taskAPI.createTask( title, description, 'new', null, priority ); 
+            setTitle(''); 
+            setDescription(''); 
+            setPriority('middle'); 
+            onTaskCreated(); 
+        } catch (error) { 
+            console.error(error); 
+        } 
     };
 
     return (
         <div className='task-form'>
-            <h2>Добавить задачу</h2>
+            <h3>Добавить задачу</h3>
             <form onSubmit={handleSubmit}>
                 <div className='part-form'>
                     <label>Название задачи:</label><br />
@@ -37,9 +43,16 @@ function TaskForm({ onAdd }) {
                         className='description'
                     />
                 </div>
-                <button type="submit" className="add-task">
+                <div className='form-button'>
+                    <button type="submit" className="add-task">
                     Добавить задачу
-                </button>
+                    </button>
+                    <select className='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
+                            <option value="high">Высокий</option> 
+                            <option value="middle">Средний</option> 
+                            <option value="low">Низкий</option>
+                    </select>
+                </div>
             </form>
         </div>
     );

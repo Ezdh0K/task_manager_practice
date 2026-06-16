@@ -73,3 +73,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 
 npm start
+npm run server

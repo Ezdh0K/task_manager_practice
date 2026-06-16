@@ -6,11 +6,11 @@ import './style/HomePage.css';
 
 const HomePage = () => {
   return (
-    <div className="page">
+    <>
       <Header />
       <MainContent />
       <Footer />
-    </div>
+    </>
   );
 };
 

@@ -1,48 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/HomePage.css';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import TaskStatistics from './components/TaskStatistics';
+import { taskAPI } from '../services/api.js';
 
 function MainContent() {
-    const [tasks, setTasks] = useState([]);
-    const [nextId, setNextId] = useState(1);
+const [tasks, setTasks] = useState([]);
 
-    const handleAddTask = (taskData) => {
-        const newTask = {
-            id: nextId,
-            title: taskData.title,
-            description: taskData.description,
-            status: 'новое',
-            createdAt: new Date().toISOString()
-        };
-        
-        setTasks([...tasks, newTask]);
-        setNextId(nextId + 1);
-    };
+const loadTasks = async () => {
+    try {
+        const data = await taskAPI.getAllTasks();
+        setTasks(Array.isArray(data) ? data : data.tasks || []);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-    const handleUpdateStatus = (id, newStatus) => {
-        setTasks(tasks.map(task => 
-            task.id === id ? { ...task, status: newStatus } : task
-        ));
-    };
+useEffect(() => {
+    loadTasks();
+}, []);
 
-    const handleDeleteTask = (id) => {
-        setTasks(tasks.filter(task => task.id !== id));
-    };
-
-
-    return (
+return (
     <main className="main-content">
-        <section className='left-side'>
-          <TaskForm onAdd={handleAddTask} />
-          <TaskStatistics tasks={tasks}/>
+        <section className="left-side">
+            <TaskForm onTaskCreated={loadTasks} />
+            <TaskStatistics tasks={tasks} />
         </section>
-        <section className='taskSide'>
-          <TaskList tasks={tasks} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteTask}/>
+
+        <section className="taskSide">
+            <TaskList tasks={tasks} refreshTasks={loadTasks} />
         </section>
     </main>
-    );
-};
+);
+
+}
 
 export default MainContent;
