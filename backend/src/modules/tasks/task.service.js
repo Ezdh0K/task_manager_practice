@@ -2,6 +2,9 @@
 const taskModel = require('./task.model');
 
 exports.createTask = async (taskData) => {
+    if (!taskData.user_id) {
+        throw new Error("Войдите в аккаунт!");
+    }
     if (!taskData.task_title || !taskData.task_description){
         throw new Error("Поля названия и описания обязательны для заполнения!");
     }
@@ -11,36 +14,55 @@ exports.createTask = async (taskData) => {
     return taskModel.createTask(taskData);
 };
 
-exports.getAllTasks = async () => {
-    return taskModel.getAllTasks();
+exports.getTasksByUser = async (taskData) => {
+    if (!taskData.user_id) {
+        throw new Error("User ID не найден");
+    }
+    return taskModel.getTasksByUser(taskData);
 };
 
 exports.getTaskById = async (taskData) => {
-    if (!taskData.task_id)
-        {
-            throw new Error("Такой задачи не существует!");
-        }
     return taskModel.getTaskById(taskData);
 };
 
 exports.updateTask = async (taskData) => {
-    const { new_task_title, new_task_description, task_id } = taskData;
+    const { user_id, new_task_title, new_task_description, task_id } = taskData;
+    if (!user_id || !task_id) {
+        throw new Error("User ID и task ID обязательны!");
+    }
+
+    const task = await taskModel.getTaskById({task_id});
+    if (!task) {
+        throw new Error("Задача не найдена!");
+    }
+
+    if (task.user_id !== user_id) {
+        throw new Error("У вас нет доступа к этой задаче!");
+    }
+
     if (!new_task_title || !new_task_description) {
-        throw new Error("Измените название или описание задачи");
+        throw new Error("Измените название или описание задачи!");
     }
     if (new_task_description.length > 500) {
         throw new Error("Ввести можно максимум 500 символов!");
     }
-    if (!task_id){
-        throw new Error("Такой задачи не существует!");
-    }
-    return taskModel.putTask(taskData);
+
+    return taskModel.updateTask(taskData);
 };
 
 exports.deleteTask = async (taskData) => {
-    if (!taskData.task_id)
-        {
-            throw new Error("Такая задача не существует!");
-        }
+    const { user_id, task_id } = taskData;
+    if (!user_id || !task_id) {
+        throw new Error("User ID и Task ID обязательны!");
+    }
+
+    const task = await taskModel.getTaskById({task_id});
+    if (!task) {
+        throw new Error("Такая задача не найдена!");
+    }
+    if (task.user_id !== user_id) {
+        throw new Error("У вас нет доступа к этой задаче!");
+    }
+    
     return taskModel.deleteTask(taskData);
 };

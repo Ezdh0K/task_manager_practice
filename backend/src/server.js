@@ -1,8 +1,10 @@
-require('dotenv').config();
+require('dotenv').config({
+    quiet: true
+});
 const app = require('./app');
 const pool = require('./db/pool');
 
-pool.query('SELECT NOW', (err, res) => {
+pool.query('SELECT NOW()', (err, res) => {
     if (err) { console.log('Error connecting to the database', err.stack);  }
     else { console.log('Database connect is succesfuly.', res.rows); }
 });

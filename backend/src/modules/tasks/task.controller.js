@@ -2,8 +2,9 @@ const taskService = require('./task.service');
 
 exports.createTask = async (req, res, next) => {
     try {
+        const user_id = req.user.user_id;
         const { task_title, task_description } = req.body;
-        const task = await taskService(task_title, task_description);
+        const task = await taskService.createTask({user_id, task_title, task_description});
 
         res.status(201).json(task);
     } catch (err) {
@@ -11,9 +12,10 @@ exports.createTask = async (req, res, next) => {
     } 
 };
 
-exports.getAllTasks = async (req, res, next) => {
+exports.getTasksByUser = async (req, res, next) => {
     try {
-        const tasks = await taskService.getAllTasks();
+        const user_id = req.user.user_id;
+        const tasks = await taskService.getTasksByUser({user_id});
 
         res.status(200).json(tasks);
     } catch (err) {
@@ -24,9 +26,9 @@ exports.getAllTasks = async (req, res, next) => {
 exports.getTaskById = async (req, res, next) => {
     try {
         const { task_id } = req.params;
-        const task = await taskService.getTaskById(task_id);
+        const task = await taskService.getTaskById({task_id});
 
-        res.status(200).json(task);
+        return res.status(200).json(task);
     } catch (err) {
         next(err);
     }
@@ -34,9 +36,11 @@ exports.getTaskById = async (req, res, next) => {
 
 exports.updateTask = async (req, res, next) => {
     try {
-        const { task_title, task_description, task_status } = req.body;
+        const { new_task_title, new_task_description, new_task_status } = req.body;
         const { task_id } = req.params;
-        const task = await taskService.updateTask(task_id, task_title, task_description, task_status);
+        const user_id = req.user.user_id;
+
+        const task = await taskService.updateTask({user_id, task_id, task_title, task_description, task_status});
 
         res.status(200).json(task);
     } catch (err) {
@@ -46,8 +50,9 @@ exports.updateTask = async (req, res, next) => {
 
 exports.deleteTask = async (req, res, next) => {
     try {
+        const user_id = req.user.user_id;
         const { task_id } = req.params;
-        await taskService.deleteTask(task_id);
+        await taskService.deleteTask({ task_id, user_id });
 
         res.status(204).send();
     } catch (err) {

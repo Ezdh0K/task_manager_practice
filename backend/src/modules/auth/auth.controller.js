@@ -1,7 +1,9 @@
 const bcrypt = require('bcryptjs');
 const User = require('../users/user.model');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('dotenv').config({
+    quiet: true
+});
 
 const generateAccessToken = (id, roles) => {
     const payload = {

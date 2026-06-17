@@ -1,4 +1,6 @@
-require('dotenv').config();
+require('dotenv').config({
+    quiet: true
+});
 const taskRoutes = require('./modules/tasks/task.routes');
 const userRoutes = require('./modules/users/user.routes');
 const authRoutes = require('./modules/auth/auth.routes');
