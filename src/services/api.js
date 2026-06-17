@@ -134,5 +134,50 @@ export const userAPI = {
       console.error('Error deleting user:', error);
       throw error;
     }
+  }
+};
+
+export const authAPI = {
+  login: async (user_email, password, role) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_email, password, role }),
+      });
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Ошибка при входе');
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error logging in:', error);
+      throw error;
+    }
   },
+
+  register: async (user_name, user_email, password, role = 'user') => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/registration`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name, user_email, password, role }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || 'Failed to register');
+      }
+      return data;
+    } catch (error) {
+      console.error('Error registering:', error);
+      throw error;
+    }
+  }
 };

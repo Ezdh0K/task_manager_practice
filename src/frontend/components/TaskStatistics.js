@@ -11,14 +11,14 @@ function TaskStatistics({ tasks }) {
     }
     return (
         <div className="statistic">
-            <h3>Просмотр</h3>
+            <h3>Статистика</h3>
             <ul className="list">
-                <li>Всего: {total}</li>
-                <li>Новых: {newCount}</li>
-                <li>В процессе: {inProgressCount}</li>
-                <li>Выполнено: {completedCount}</li>
+                <li>Всего: <span>{total}</span></li>
+                <li>Новых: <span style={{color: '#1976d2'}}>{newCount}</span></li>
+                <li>В процессе: <span style={{color: '#f57c00'}}>{inProgressCount}</span></li>
+                <li>Выполнено: <span style={{color: '#388e3c'}}>{completedCount}</span></li>
             </ul>
-            <p>{completedScore}% выполнено</p>
+            <label>{completedScore}% выполнено</label>
         </div>
     );
 }

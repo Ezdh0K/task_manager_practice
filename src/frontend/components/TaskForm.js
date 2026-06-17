@@ -20,6 +20,15 @@ function TaskForm({ onTaskCreated }) {
         } 
     };
 
+    const getPriorityVariables = (priority) => {
+    const variables = {
+            low: '--priority-bg: #e0f7fa; --priority-text: #006064; --priority-border: #b2ebf2;',
+            middle: '--priority-bg: #fff3e0; --priority-text: #f57c00; --priority-border: #ffb74d;',
+            high: '--priority-bg: #ffebee; --priority-text: #c62828; --priority-border: #ef9a9a;'
+        };
+        return variables[priority] || '';
+    };
+
     return (
         <div className='task-form'>
             <h3>Добавить задачу</h3>
@@ -42,15 +51,16 @@ function TaskForm({ onTaskCreated }) {
                         placeholder="Описание задачи" 
                         className='description'
                     />
+                    <span className='count-symbol'>{description.length}/500</span>
                 </div>
                 <div className='form-button'>
                     <button type="submit" className="add-task">
                     Добавить задачу
                     </button>
-                    <select className='priority' value={priority} onChange={(e) => setPriority(e.target.value)}>
-                            <option value="high">Высокий</option> 
-                            <option value="middle">Средний</option> 
-                            <option value="low">Низкий</option>
+                    <select className='task-priority' value={priority} onChange={(e) => setPriority(e.target.value)} style={{ cssText: getPriorityVariables(priority) }}>
+                            <option value="low" className='task-priority-low'>Низкий</option>
+                            <option value="middle" className='task-priority-middle'>Средний</option>
+                            <option value="high" className='task-priority-high'>Высокий</option>
                     </select>
                 </div>
             </form>

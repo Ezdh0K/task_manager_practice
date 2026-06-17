@@ -36,8 +36,8 @@ exports.login = async (req, res) => {
         const user = await User.getUserByEmail({user_email});
         if (!user)
             {
-                console.log('user not found');
-                return res.status(401).json({ error: 'user not found' });
+                console.log('Аккаунта не существует');
+                return res.status(401).json({ error: 'Аккаунта не существует' });
             }
 
         const valid = await bcrypt.compare(password, user.password_hash);
