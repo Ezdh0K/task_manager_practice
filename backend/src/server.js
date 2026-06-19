@@ -1,6 +1,6 @@
 const path = require('path');
 // Ищем .env в той же папке, где лежит сам server.js (то есть в backend/src/)
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config({ path: path.join(__dirname, '.env'), quiet: true });
 const app = require('./app');
 const pool = require('./db/pool');
 

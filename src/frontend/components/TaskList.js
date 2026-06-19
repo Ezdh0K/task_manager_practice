@@ -83,7 +83,6 @@ function TaskList({ tasks, refreshTasks }) {
                             <option value="in_progress" className='task-action-in-progress'>В процессе</option>
                             <option value="done" className='task-action-done'>Выполнено</option>
                         </select>
-
                         <button onClick={() => handleDelete(task.task_id)} className='delete'>
                             Удалить
                         </button>
@@ -106,6 +105,7 @@ function TaskList({ tasks, refreshTasks }) {
                                 <option value="high" className='task-priority-high'>Высокий</option>
                             </select>
                             <span className='date'>
+                            <span className="priority-text">{task.category}</span>
                             {new Date(task.task_created_at).toLocaleString('ru-RU', {
                                     day: '2-digit',
                                     month: '2-digit',

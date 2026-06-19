@@ -5,9 +5,9 @@ import TaskList from './components/TaskList';
 import TaskStatistics from './components/TaskStatistics';
 import TaskSort from './components/TaskSort.js';
 import { taskAPI } from '../services/api.js';
-import { Link } from 'react-router-dom';
+import UserProfile from './components/UserProfile';
 
-function MainContent() {
+function MainContent({ currentUser, onLogout }) {
 const [tasks, setTasks] = useState([]);
 
 const [statusFilter, setStatusFilter] = useState('all');
@@ -49,11 +49,7 @@ return (
         <section className="left-side">
             <TaskForm onTaskCreated={loadTasks} />
             <TaskStatistics tasks={tasks} />
-            <div>
-                <Link to="/authentication" className="Auth">
-                    Вход
-                </Link>
-            </div>
+            <UserProfile user={currentUser} onLogout={onLogout} />
         </section>
 
         <section className="taskSide">

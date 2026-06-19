@@ -3,11 +3,11 @@ import Footer from '../Footer';
 import Header from '../Header';
 import AuthForm from '../components/AuthForm';
 
-function AuthPage() {
+function AuthPage({ onLogin }) {
   return (
     <>
       <Header />
-      <AuthForm />
+      <AuthForm onLogin={onLogin} />
       <Footer />
     </>
   );

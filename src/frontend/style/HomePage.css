@@ -223,7 +223,7 @@ label{
 }
 
 .date span{
-  font-size: 14px;
+  font-size: 12px;
   color: #000000;
 }
 
@@ -537,4 +537,62 @@ label{
 
 .switch-link:hover {
   text-decoration: underline;
+}
+
+.user-title{
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-title p{
+  color: #777;
+}
+
+.user-profile{
+  padding-left: 20px;
+  border: 1px solid #bbdefb;
+  border-radius: 8px;
+  background-color: #e3f2fd;
+  padding-bottom: 4px;
+}
+
+.user-profile h4{
+  margin: 2px 0 2px 0; 
+  color: #1565c0;
+}
+
+.user-info{
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.user-info p{
+  margin: 4px 0;
+}
+
+.user-profile button{
+  padding: 5px 12px;
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.category{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 10px;
+  background-color: #f2f3f5;
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #333;
+  outline: none;
 }

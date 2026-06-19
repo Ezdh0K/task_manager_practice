@@ -5,18 +5,23 @@ function TaskForm({ onTaskCreated }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('middle');
+    const [error, setError] = useState('');
+    const [category, setCategory] = useState('');
 
     const handleSubmit = async (e) => { 
         e.preventDefault(); 
         if (!title.trim()) return; 
+        setError('');
         try { 
-            await taskAPI.createTask( title, description, 'new', null, priority ); 
+            await taskAPI.createTask( title, description, 'new', category, priority ); 
             setTitle(''); 
             setDescription(''); 
             setPriority('middle'); 
+            setCategory(''); 
             onTaskCreated(); 
         } catch (error) { 
             console.error(error); 
+            setError(error.message || 'Не удалось создать задачу. Проверьте авторизацию.');
         } 
     };
 
@@ -32,6 +37,22 @@ function TaskForm({ onTaskCreated }) {
     return (
         <div className='task-form'>
             <h3>Добавить задачу</h3>
+
+            {error && (
+                <div style={{
+                    color: '#c62828',
+                    backgroundColor: '#ffebee',
+                    padding: '10px 14px',
+                    border: '1px solid #ef9a9a',
+                    borderRadius: '4px',
+                    marginBottom: '15px',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                }}>
+                    {error}
+                </div>
+            )}
+            
             <form onSubmit={handleSubmit}>
                 <div className='part-form'>
                     <label>Название задачи:</label><br />
@@ -41,6 +62,19 @@ function TaskForm({ onTaskCreated }) {
                         onChange={(e) => setTitle(e.target.value)} 
                         placeholder="Введите название"
                         className='title'
+                        maxLength={255}
+                    />
+                </div>
+
+                <div className="part-form">
+                    <label>Категория:</label><br />
+                    <input 
+                    type="text" 
+                    className='category'
+                    placeholder="Категория" 
+                    value={category} 
+                    onChange={(e) => setCategory(e.target.value)}
+                    maxLength={50}
                     />
                 </div>
                 <div className='part-form'>
@@ -50,6 +84,7 @@ function TaskForm({ onTaskCreated }) {
                         onChange={(e) => setDescription(e.target.value)} 
                         placeholder="Описание задачи" 
                         className='description'
+                        maxLength={500}
                     />
                     <span className='count-symbol'>{description.length}/500</span>
                 </div>

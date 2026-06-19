@@ -1,17 +1,26 @@
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+  };
+};
+
 export const taskAPI = {
   createTask: async (task_title, task_description, task_status = 'new', category = null, priority = null) => {
     try {
       const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ task_title, task_description, task_status, category, priority }),
       });
-      if (!response.ok) throw new Error('Failed to create task');
-      return await response.json();
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Ошибка при создании задачи');
+      }
+      return data;
     } catch (error) {
       console.error('Error creating task:', error);
       throw error;
@@ -20,7 +29,9 @@ export const taskAPI = {
 
   getAllTasks: async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/tasks`);
+      const response = await fetch(`${API_BASE_URL}/tasks`, {
+        headers: getAuthHeaders(),
+      });
       if (!response.ok) throw new Error('Failed to fetch tasks');
       return await response.json();
     } catch (error) {
@@ -31,7 +42,9 @@ export const taskAPI = {
 
   getTaskById: async (task_id) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/tasks/${task_id}`);
+      const response = await fetch(`${API_BASE_URL}/tasks/${task_id}`, {
+        headers: getAuthHeaders(),
+      });
       if (!response.ok) throw new Error('Failed to fetch task');
       return await response.json();
     } catch (error) {
@@ -44,9 +57,7 @@ export const taskAPI = {
     try {
       const response = await fetch(`${API_BASE_URL}/tasks/${task_id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ new_task_title, new_task_description, new_task_status, new_category, new_priority }),
       });
       if (!response.ok) throw new Error('Failed to update task');
@@ -61,6 +72,7 @@ export const taskAPI = {
     try {
       const response = await fetch(`${API_BASE_URL}/tasks/${task_id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(),
       });
       if (!response.ok) throw new Error('Failed to delete task');
       return await response.json();

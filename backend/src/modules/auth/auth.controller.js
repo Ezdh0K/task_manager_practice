@@ -1,11 +1,13 @@
 const bcrypt = require('bcryptjs');
 const User = require('../users/user.model');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('dotenv').config({
+    quiet: true
+});
 
-const generateAccessToken = (id, roles) => {
+const generateAccessToken = (user_id, roles) => {
     const payload = {
-        id, roles
+        user_id, roles
     };
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "24h" } );
 }
@@ -49,7 +51,14 @@ exports.login = async (req, res) => {
         
         const token = generateAccessToken(user.user_id, user.role);
 
-        return res.json({ token });
+        return res.json({ 
+            token, 
+            user: {
+                user_id: user.user_id,
+                user_name: user.user_name,
+                user_email: user.user_email,
+                role: user.role
+            }});
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: 'Ошибка логина!' });
@@ -60,5 +69,8 @@ exports.getUsers = async (req, res) => {
     try {
         const users = await User.getAllUsers();
         res.json(users);
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: 'Ошибка получения списка пользователей!' });
+    }
 };

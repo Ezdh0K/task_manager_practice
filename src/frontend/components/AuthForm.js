@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { userAPI } from '../../services/api';
 import { authAPI } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,10 +26,16 @@ function AuthPage({ onLogin }) {
         await authAPI.register(formData.name, formData.email, formData.password);
         setMode('signin');
       } else {
-        await authAPI.login(formData.email, formData.password);
+        const data = await authAPI.login(formData.email, formData.password);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        if (onLogin) {
+          onLogin(data.user);
+        } else {
+          console.error("КРИТИЧЕСКАЯ ОШИБКА: Функция onLogin потерялась по дороге к форме!");
+        }
         navigate('/');
       }
-      if (onLogin) onLogin(formData);
     } catch (error) {
       setErrorMsg(error.message || 'Что-то пошло не так...');
     }

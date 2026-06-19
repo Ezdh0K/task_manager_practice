@@ -1,5 +1,6 @@
 CREATE TABLE tasks (
     task_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     task_title VARCHAR(255) NOT NULL,
     task_description VARCHAR(500),
     task_status VARCHAR(15) NOT NULL DEFAULT 'new'
@@ -18,9 +19,4 @@ CREATE TABLE users (
     user_created_at TIMESTAMP DEFAULT NOW(),
     role VARCHAR(50) DEFAULT 'user'
     CHECK (role in ('user', 'admin'))
-);
-
-CREATE TABLE usersTasks (
-    user_id INTEGER REFERENCES users(user_id) on DELETE CASCADE,
-    task_id INTEGER UNIQUE REFERENCES tasks(task_id) on DELETE CASCADE
 );
