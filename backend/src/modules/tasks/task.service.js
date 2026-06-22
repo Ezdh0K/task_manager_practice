@@ -1,6 +1,6 @@
 //Бизнес логика
 const taskModel = require('./task.model.js');
-const analyzeTask = require('../../services/ai.service.js');
+const { analyzeTask } = require('../../services/ai.service.js');
 
 exports.createTask = async (taskData) => {
     const { user_id, task_title, task_description, task_status, category, priority } = taskData;
@@ -15,7 +15,7 @@ exports.createTask = async (taskData) => {
     }
 
     const analysis = await analyzeTask(
-        `${title} ${description}`
+        `${task_title} ${task_description}`
     );
     console.log(analysis);
 

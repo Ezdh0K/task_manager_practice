@@ -552,6 +552,23 @@ label{
   color: #777;
 }
 
+.auth-button {
+  background-color: #81828e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  background-color: #6d6e79;
+}
+
 .user-profile{
   padding-left: 20px;
   border: 1px solid #bbdefb;
