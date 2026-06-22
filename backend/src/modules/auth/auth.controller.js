@@ -21,7 +21,7 @@ exports.registration = async (req, res) => {
         if (existing) return res.status(409).json({ error: 'user already exists' });
 
         const password_hash = await bcrypt.hash(password, 10);
-        const user = await User.createUser({ user_name, user_email, password_hash, role });
+        await User.createUser({ user_name, user_email, password_hash, role });
 
         return res.json({ message: 'Пользователь успешно зарегистрирован' });
     } catch (err) {

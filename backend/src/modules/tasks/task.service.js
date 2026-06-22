@@ -1,5 +1,6 @@
 //Бизнес логика
 const taskModel = require('./task.model.js');
+const analyzeTask = require('../../services/ai.service.js');
 
 exports.createTask = async (taskData) => {
     const { user_id, task_title, task_description, task_status, category, priority } = taskData;
@@ -12,6 +13,12 @@ exports.createTask = async (taskData) => {
     if (task_description.length > 500) {
         throw new Error("Можно ввести максимум 500 символов!");
     }
+
+    const analysis = await analyzeTask(
+        `${title} ${description}`
+    );
+    console.log(analysis);
+
     return taskModel.createTask({user_id, task_title, task_description, task_status, category, priority});
 };
 

@@ -5,7 +5,8 @@ CREATE TABLE tasks (
     task_description VARCHAR(500),
     task_status VARCHAR(15) NOT NULL DEFAULT 'new'
     CHECK(task_status in ('new', 'done', 'in_progress')),
-    category VARCHAR(50),
+    category VARCHAR(50)
+    CHECK (category in ('work', 'study', 'house', 'personal', 'health', 'social', 'other')),
     priority VARCHAR(50)
     CHECK (priority in ('low', 'middle', 'high')),
     task_created_at TIMESTAMP DEFAULT NOW()

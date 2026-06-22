@@ -4,6 +4,7 @@ exports.createTask = async (req, res, next) => {
     try {
         const user_id = req.user.user_id;
         const { task_title, task_description, task_status, category, priority } = req.body;
+
         const task = await taskService.createTask({user_id, task_title, task_description, task_status, category, priority});
 
         res.status(201).json(task);
