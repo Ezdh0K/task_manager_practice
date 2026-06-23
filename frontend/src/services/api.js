@@ -9,7 +9,7 @@ const getAuthHeaders = () => {
 };
 
 export const taskAPI = {
-  createTask: async (task_title, task_description, task_status = 'new', category = null, priority = null) => {
+  createTask: async (task_title, task_description, task_status = 'new', category = '', priority = 'auto') => {
     try {
       const response = await fetch(`${API_BASE_URL}/tasks`, {
         method: 'POST',
@@ -192,4 +192,32 @@ export const authAPI = {
       throw error;
     }
   }
+};
+export const exportAPI = {
+    exportTasks: async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/export`, {
+                method: 'GET',
+                headers: getAuthHeaders(),
+            });
+            
+            if (!response.ok) throw new Error('Failed to export tasks');
+            
+            // Скачивание файла
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tasks.csv';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            
+            return { success: true };
+        } catch (error) {
+            console.error('Error exporting tasks:', error);
+            throw error;
+        }
+    }
 };

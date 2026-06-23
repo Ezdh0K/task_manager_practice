@@ -3,9 +3,6 @@ require('dotenv').config({
     quiet: true
 });
 
-console.log("DB PASSWORD TYPE:", typeof process.env.DB_PASSWORD);
-console.log("DB PASSWORD VALUE:", process.env.DB_PASSWORD);
-
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,

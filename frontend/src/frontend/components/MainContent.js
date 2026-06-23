@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './style/HomePage.css';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
-import TaskStatistics from './components/TaskStatistics';
-import TaskSort from './components/TaskSort.js';
-import { taskAPI } from '../services/api.js';
-import UserProfile from './components/UserProfile';
+import '../style/HomePage.css';
+import TaskForm from './TaskForm';
+import TaskList from './TaskList';
+import TaskStatistics from './TaskStatistics';
+import TaskSort from './TaskSort.js';
+import UserProfile from './UserProfile';
+import { taskAPI } from '../../services/api.js';
+
 
 function MainContent({ currentUser, onLogout }) {
 const [tasks, setTasks] = useState([]);

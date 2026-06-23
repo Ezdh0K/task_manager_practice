@@ -4,7 +4,7 @@ import { taskAPI } from '../../services/api.js';
 function TaskForm({ onTaskCreated }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [priority, setPriority] = useState('middle');
+    const [priority, setPriority] = useState('auto');
     const [error, setError] = useState('');
     const [category, setCategory] = useState('');
 
@@ -16,7 +16,7 @@ function TaskForm({ onTaskCreated }) {
             await taskAPI.createTask( title, description, 'new', category, priority ); 
             setTitle(''); 
             setDescription(''); 
-            setPriority('middle'); 
+            setPriority('auto'); 
             setCategory(''); 
             onTaskCreated(); 
         } catch (error) { 
@@ -27,6 +27,7 @@ function TaskForm({ onTaskCreated }) {
 
     const getPriorityVariables = (priority) => {
     const variables = {
+            auto: '--priority-bg: #e8eaf6; --priority-text: #3f51b5; --priority-border: #c5cae9;',
             low: '--priority-bg: #e0f7fa; --priority-text: #006064; --priority-border: #b2ebf2;',
             middle: '--priority-bg: #fff3e0; --priority-text: #f57c00; --priority-border: #ffb74d;',
             high: '--priority-bg: #ffebee; --priority-text: #c62828; --priority-border: #ef9a9a;'
@@ -93,6 +94,7 @@ function TaskForm({ onTaskCreated }) {
                     Добавить задачу
                     </button>
                     <select className='task-priority' value={priority} onChange={(e) => setPriority(e.target.value)} style={{ cssText: getPriorityVariables(priority) }}>
+                            <option value="auto" className='task-priority-auto'>Авто</option>
                             <option value="low" className='task-priority-low'>Низкий</option>
                             <option value="middle" className='task-priority-middle'>Средний</option>
                             <option value="high" className='task-priority-high'>Высокий</option>

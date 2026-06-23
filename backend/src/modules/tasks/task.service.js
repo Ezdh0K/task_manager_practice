@@ -1,8 +1,9 @@
 //Бизнес логика
 const taskModel = require('./task.model.js');
+const { analyzeTask } = require('../../services/ai.service.js');
 
 exports.createTask = async (taskData) => {
-    const { user_id, task_title, task_description, task_status, category, priority } = taskData;
+    let { user_id, task_title, task_description, task_status, category, priority } = taskData;
     if (!taskData.user_id) {
         throw new Error("Войдите в аккаунт!");
     }
@@ -12,7 +13,30 @@ exports.createTask = async (taskData) => {
     if (task_description.length > 500) {
         throw new Error("Можно ввести максимум 500 символов!");
     }
-    return taskModel.createTask({user_id, task_title, task_description, task_status, category, priority});
+
+    const isPriorityAuto = (priority === 'auto');
+    const isCategoryEmpty = (!category || category.trim() === '');
+
+    if (isPriorityAuto || isCategoryEmpty) {
+        try {
+            const analysis = await analyzeTask(`${task_title} ${task_description}`);
+            console.log("Результат ИИ-анализа:", analysis);
+            
+            if (isPriorityAuto) {
+                priority = analysis.priority || 'middle'; 
+            }
+            
+            if (isCategoryEmpty) {
+                category = analysis.category || 'other';
+            }
+        } catch (error) {
+            console.error("Ошибка при связи с Python-сервисом:", error.message);
+            if (isPriorityAuto) priority = 'middle';
+            if (isCategoryEmpty) category = 'other';
+        }
+    }
+
+    return taskModel.createTask({ user_id, task_title, task_description, task_status, category, priority });
 };
 
 exports.getTasksByUser = async (taskData) => {

@@ -15,6 +15,28 @@ code {
   border-color: #ccc;
   width: 100%;
   font-size: small;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Name button{
+  background-color: #81828e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  width: auto;
+  justify-content: center;
+}
+
+.Name button:hover {
+  background-color: #6d6e79;
 }
 
 .Name h1{
@@ -423,7 +445,6 @@ label{
   color: rgb(0, 0, 0);
 }
 
-/* Общий фон страницы */
 .auth-page {
   min-height: 100vh;
   background-color: #ffffff;
@@ -434,7 +455,6 @@ label{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Карточка */
 .auth-card {
   background-color: #f9f9f9;
   border: 1px solid #2a2a3d;
@@ -540,12 +560,12 @@ label{
 }
 
 .user-title{
-  padding: 20px;
+  padding-left: 20px;
   border: 1px dashed #ccc;
   border-radius: 8px;
   background-color: #fafafa;
   text-align: center;
-  margin-bottom: 20px;
+  padding-bottom: 4px;
 }
 
 .user-title p{
@@ -576,6 +596,16 @@ label{
 }
 
 .user-profile button{
+  padding: 5px 12px;
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.user-title button{
   padding: 5px 12px;
   background-color: #d32f2f;
   color: #fff;

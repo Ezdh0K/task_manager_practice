@@ -7,7 +7,15 @@ function UserProfile({ user, onLogout }) {
     return (
       <div className="user-title">
         <h4>Мой профиль</h4>
-        <p>Вы вошли как гость. Пожалуйста, авторизуйтесь для управления задачами.</p>
+        <div><p>Вы вошли как гость. Пожалуйста, авторизуйтесь для управления задачами.</p></div>
+      
+        {onLogout && (
+          <button onClick={onLogout}>
+            <Link to="/authentication" className="Auth" onClick={onLogout}>
+              Вход
+            </Link>
+          </button>
+        )}
       </div>
     );
   }

@@ -1,0 +1,7 @@
+{
+    "git.ignoreLimitWarning": true,
+    "python-envs.pythonProjects": [],
+    "python.analysis.extraPaths": [
+        "./backend/src/services/text_analyze"
+    ]
+}
