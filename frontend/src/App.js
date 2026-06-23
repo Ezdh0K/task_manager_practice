@@ -1,7 +1,7 @@
-import HomePage from "./frontend/HomePage";
+import HomePage from "./pages/HomePage";
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import AuthPage from "./frontend/pages/AuthPage";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {

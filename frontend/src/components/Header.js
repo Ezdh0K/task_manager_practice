@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/HomePage.css';
-import { exportAPI } from '../../services/api.js';
+import { exportAPI } from '../services/api.js';
 
 const handleExport = async () => {
     try {

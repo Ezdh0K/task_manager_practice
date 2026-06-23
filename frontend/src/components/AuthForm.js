@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authAPI } from '../../services/api';
+import { authAPI } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 function AuthPage({ onLogin }) {

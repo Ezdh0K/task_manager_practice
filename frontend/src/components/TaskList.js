@@ -1,5 +1,5 @@
 import React from 'react';
-import { taskAPI } from '../../services/api.js';
+import { taskAPI } from '../services/api.js';
 
 function TaskList({ tasks, refreshTasks }) {
 

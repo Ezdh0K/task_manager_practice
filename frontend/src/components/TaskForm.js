@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { taskAPI } from '../../services/api.js';
+import { taskAPI } from '../services/api.js';
 
 function TaskForm({ onTaskCreated }) {
     const [title, setTitle] = useState('');

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../style/HomePage.css';
-import TaskForm from './TaskForm';
-import TaskList from './TaskList';
-import TaskStatistics from './TaskStatistics';
+import TaskForm from './TaskForm.js';
+import TaskList from './TaskList.js';
+import TaskStatistics from './TaskStatistics.js';
 import TaskSort from './TaskSort.js';
-import UserProfile from './UserProfile';
-import { taskAPI } from '../../services/api.js';
+import UserProfile from './UserProfile.js';
+import { taskAPI } from '../services/api.js';
 
 
 function MainContent({ currentUser, onLogout }) {
